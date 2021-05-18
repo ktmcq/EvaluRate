@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<body>
+
+<div class="formEntry">
+<div class="row">
+<form action="/getcourseleaderboard" method="POST">
+
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <label for="lname">Department:</label><br>
+    <select name="dept" id="dept">
+	<option value="any" selected="selected">All</option>
+	<option value="cdt">CDT</option>
+	<option value="cse">CSE</option>
+	<option value"theo">THEO</option>
+    </select>
+    <br><br>
+    <label for="lname">Rank By:</label><br>
+    <select name="rankby" id="rankby">
+	<option value="overall" selected="selected">Overall Rating</option>
+	<option value="usefulness">Usefulness</option>
+	<option value="workload">Workload</option>
+	<option value="difficulty">Difficulty</option>
+	<option value="enjoyment">Enjoyment</option>
+    </select>
+    <br><br>
+    <button class="btn btn-primary" type="submit" name="submit">Get Leaderboard</button>
+    </div>
+  </form>
+</div>
+
+
+
+</body>
+</html>

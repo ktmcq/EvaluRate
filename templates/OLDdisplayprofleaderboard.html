@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Professor Leaderboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/style.css" />
+  <link rel="shortcut icon" type="image/jpg" href="../static/circle.jpg"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  </style>
+  
+</head>
+<body>
+
+<div id="nav-placeholder">
+
+</div>
+
+<script src="//code.jquery.com/jquery.min.js"></script>
+
+<div class="container-fluid text-center">
+      <h1>Professor Leaderboard - {{description}}</h1>
+      <br>
+</div>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<center>
+<table style="width:400px">
+  <thead>
+     <tr>
+    {% for column in columns %} 
+            <th>{{column}}</th>
+        
+    {% endfor %}
+    </tr>
+      </thead>
+  {% for record in result %}
+        <tr>     
+		<script>
+		var prof = '{{record[0]}}'
+		prof = prof.replace(' ','%20');
+		var url = 'http://52.87.107.120/seeprof?' + prof;
+		</script>
+		<td><a id='{{record[0]}}' href="">{{record[0]}}</a></td> 
+		<script>document.getElementById('{{record[0]}}').setAttribute("href",url);</script>
+		
+            {% for feature in record[1:] %}
+              <td> {{feature}} </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+</table>
+</center>
+<br><br>
+
+
+</div>
+</div>
+
+
+</div>
+</div>
+
+
+<br>
+</body>
+</html>
+

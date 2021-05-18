@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<body>
+
+<div class="container-fluid text-center">
+      <h1>Professor to Rate: {{profname}}</h1>
+      <br>
+</div>
+
+<div class="formEntry">
+<div class="row">
+<form action="/addprofratings" method="POST">
+
+
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+    <label for="lname">Overall Rating (1-worst prof ever,10-best prof ever):</label><br>
+    <input type="number" min="1" max="10" step="0.1" id="overall" name="overall" required><br><br>
+    <label for="lname">Teaching Style (1-hate,10-love):</label><br>
+    <input type="number" min="1" max="10" step="0.1" id="style" name="style" required><br><br>
+    <label for="lname">Approachability (1-not approachable,10-very approachable):</label><br>
+    <input type="number" min="1" max="10" step="0.1" id="approach" name="approach" required><br><br>
+    <input type="checkbox" id="takeagain" name="takeagain"/>Would take again?<br>
+    <br>
+    <label for="lname">Comments:</label><br>
+    <TEXTAREA Name="comments" ROWS="10" COLS="50" required></TEXTAREA>
+    </div>
+
+    <br>
+
+
+    <button class="btn btn-primary" type="submit" name="submit" value={{profid}}>Submit Ratings</button>
+    </div>
+  </form>
+</div>
+
+
+
+</body>
+</html>

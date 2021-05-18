@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My Courses</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/style.css" />
+  <link rel="shortcut icon" type="image/jpg" href="../static/circle.jpg"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  </style>
+  
+</head>
+<body>
+
+<div id="nav-placeholder">
+
+</div>
+
+<script src="//code.jquery.com/jquery.min.js"></script>
+
+<div class="container-fluid text-center">
+      <h1><b>My {{semester}} Courses</b></h1>
+</div>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<center>
+<br><br>
+
+<br>
+<table style="width:400px">
+  <thead>
+     <tr>
+	    <th>Course Name</th>
+            <th>Course Number</th>
+	    <th>CRN</th>
+	    <th>Seats</th>
+	    <th>Location</th>
+	    <th>Date and Time</th>
+	    <th>Credits</th>
+	    <th>Professor</th>
+	    <th>Category</th>
+	    <th>Remove</th>
+    </tr>
+      </thead>
+  {% for course in defcourses %}
+        <tr>    
+	<td><a id='{{course[0]}}' href="">{{course[0]}}</a></td>
+	<script>
+		var id = '{{course[0]}}'.replaceAll('amp;','')
+		var cnum = '{{course[1]}}'.split('-')[0]
+		var cname = id.replaceAll(' ','%20')
+		var url = 'http://52.87.107.120/seecourse?'+cnum+'%20--%20'+cname
+		document.getElementById(id).setAttribute("href",url);
+	</script> 
+	{% for att in course[1:-2] %}
+              <td> {{att}} </td>
+	{% endfor %}
+	<td><a id='{{course[-2]}}{{course[1]}}' href="">{{course[-2]}}</a>
+	<script>
+		var prof='{{course[-2]}}'.replaceAll(' ','%20')
+		var url = 'http://52.87.107.120/seeprof?'+prof
+		document.getElementById('{{course[-2]}}{{course[1]}}').setAttribute("href",url);
+	</script>
+	<td>{{course[-1]}}
+	<td><button id={{course[2]}} onclick="showmodal(this)">&#128465;</button>	
+        </tr>
+        {% endfor %}
+</table>
+<table style="width:400px">
+  <thead>
+     <tr>
+	    <th>Course Name</th>
+            <th>Course Number</th>
+	    <th>CRN</th>
+	    <th>Seats</th>
+	    <th>Location</th>
+	    <th>Date and Time</th>
+	    <th>Credits</th>
+	    <th>Professor</th>
+	    <th>Category</th>
+	    <th>Remove</th>
+    </tr>
+      </thead>
+  {% for course in maybecourses %}
+        <tr>    
+	<td><a id='{{course[0]}}' href="">{{course[0]}}</a></td>
+	<script>
+		var id = '{{course[0]}}'.replaceAll('amp;','')
+		var cnum = '{{course[1]}}'.split('-')[0]
+		var cname = id.replaceAll(' ','%20')
+		var url = 'http://52.87.107.120/seecourse?'+cnum+'%20--%20'+cname
+		document.getElementById(id).setAttribute("href",url);
+	</script> 
+	{% for att in course[1:-2] %}
+              <td> {{att}} </td>
+	{% endfor %}
+	<td><a id='{{course[-2]}}{{course[1]}}' href="">{{course[-2]}}</a>
+	<script>
+		var prof='{{course[-2]}}'.replaceAll(' ','%20')
+		var url = 'http://52.87.107.120/seeprof?'+prof
+		document.getElementById('{{course[-2]}}{{course[1]}}').setAttribute("href",url);
+	</script>
+	<td>{{course[-1]}}
+	<td><button id={{course[2]}} onclick="showmodal(this)">&#128465;</button>	
+        </tr>
+        {% endfor %}
+</table>
+
+</center>
+<br><br>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="formEntry">
+    <form action="/removecoursefromlist" method="POST">
+    <br><br>
+    Do you really want to remove this course from your schedule?
+    <br><br>
+    <button class="btn btn-primary" type="submit" name="submit" id="sbutton" value="">Remove from List</button>
+    </div>
+  </form>
+
+  </div>
+
+</div>
+<script>
+function showmodal(elem) {
+	var btn = $(elem).attr("id");
+        document.getElementById("sbutton").value = btn;
+	// Get the modal
+	var modal = document.getElementById("myModal");
+
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+  	modal.style.display = "block";
+
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+  	modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+  	if (event.target == modal) {
+   		 modal.style.display = "none";
+  	}
+}
+}
+</script>
+</center>
+</div>
+</div>
+
+
+</div>
+</div>
+
+
+<br>
+</body>
+</html>
+

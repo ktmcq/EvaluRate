@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Course Ratings</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/style.css" />
+  <link rel="shortcut icon" type="image/jpg" href="../static/circle.jpg"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+  </style>
+  
+</head>
+<body>
+
+<div id="nav-placeholder">
+
+</div>
+
+<script src="//code.jquery.com/jquery.min.js"></script>
+
+<div class="container-fluid text-center">
+      <h1><b>{{coursename}}</b></h1>
+      <h2>Ratings</h2>
+      <br>
+      Note: 1 = heavy workload, 10 = light workload <br>
+            1 = very difficult, 10 = easy
+	<br><br>
+</div>
+
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+</head>
+<body>
+
+<center>
+Overall: {{result[0]}}, Usefulness: {{result[1]}}, Workload: {{result[2]}}, Difficulty: {{result[3]}}, Enjoyment: {{result[4]}}, Would Take Again: {{takeagain}}%
+<br><br>
+<table style="width:400px">
+  <thead>
+     <tr>
+            <th>Individual Ratings</th>
+    </tr>
+      </thead>
+  {% for ind in individual %}
+        <tr>      
+              <td> {{ind}} </td>
+        </tr>
+        {% endfor %}
+</table>
+
+<br><br>
+
+<h2>{{semester}} Semester Course Info</h2>
+<br>
+<table style="width:400px">
+  <thead>
+     <tr>
+            <th>Course Number</th>
+	    <th>CRN</th>
+	    <th>Credits</th>
+	    <th>Seats</th>
+	    <th>Date and Time</th>
+	    <th>Location</th>
+	    <th>Professor</th>
+	    <th>Add to Schedule</th>
+    </tr>
+      </thead>
+  {% for course in courses %}
+        <tr>      
+	{% for att in course[:-2] %}
+              <td> {{att}} </td>
+	{% endfor %}
+	      <td><a href={{course[-1]}}>{{course[-2]}}</a>
+	      <td><button id={{course[0]}} onclick="showmodal(this)">Add</button>
+        </tr>
+        {% endfor %}
+</table>
+</center>
+<br><br>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <div class="formEntry">
+    <form action="/addcoursetolist" method="POST">
+
+    <p id="course"><span style="color: #1f9659;"></span></b></p><br>
+    <select name="category" id="category">
+	<option value="Definitely">Definitely Taking</option>
+	<option value="Maybe">Maybe Taking</option>
+    </select>
+    <br><br>
+    <button class="btn btn-primary" type="submit" name="submit" id="sbutton" value={{url}}@#$>Add to List</button>
+    </div>
+  </form>
+
+  </div>
+
+</div>
+<script>
+function showmodal(elem) {
+	var btn = $(elem).attr("id");
+    	document.getElementById("course").innerHTML = btn;
+	document.getElementById("sbutton").value += btn;
+
+	// Get the modal
+	var modal = document.getElementById("myModal");
+
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
+
+  	modal.style.display = "block";
+
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+  	modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+  	if (event.target == modal) {
+   		 modal.style.display = "none";
+  	}
+}
+}
+</script>
+</center>
+</div>
+</div>
+
+
+</div>
+</div>
+
+
+<br>
+</body>
+</html>
+

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<!-- HEAD -->
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+
+    <!-- Style sheets -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../static/style.css"/>
+
+
+    <!-- Title and favicon -->
+    <title>EvaluRate</title>
+    <link rel="icon" href="../static/logo.png">
+</head>
+
+
+<!-- BODY -->
+<body>
+<div class="content">
+    <center>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top">
+            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #e2bd55;">
+                          <a class="dropdown-item" href="/updateAccount">Settings</a>
+                          <a class="dropdown-item" href="/login">Log Out</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Home</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/browse">Browse</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mx-auto order-0">
+                <a href="/home"><img src="../static/name.png" style="height: 45px;"/></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Rate
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #e2bd55;">
+                            <a class="dropdown-item" href="/rateprof">Rate Professors</a>
+                            <a class="dropdown-item" href="/ratecourse">Rate Courses</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Leaderboards
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #e2bd55;">
+                            <a class="dropdown-item" href="/profleaderboard">Professor Leaderboards</a>
+                            <a class="dropdown-item" href="/courseleaderboard">Course Leaderboards</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        More
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="background-color: #e2bd55;">
+                            <a class="dropdown-item" href="/myschedule">My Schedule</a>
+                            <a class="dropdown-item" href="/searchfriends">Friends' Schedules</a>
+                            <a class="dropdown-item" href="/probsearch">Probability Calculator</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </center>
+
+    <!-- See Course -->
+    <center>
+        <div class="jumbotron jumbotron-fluid" style="background-color: #ffffff; color: #0c2340; font-family: 'Montserrat', sans-serif;">
+            <h1 style="font-family: 'Archivo Black', sans-serif;">{{coursename}}</h1>
+
+            <div class="row">
+                <div class="col">
+                    {% if result[0] != '--' and result[0] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                    {% if result[0] != '--' and result[0] < 7 and result[0] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                    {% if result[0] != '--' and result[0] < 4 %}<span style="color: #c43636;">{% endif %}
+                    <b><span style="font-size: 1.7em;">{{result[0]}}</span></b></span>
+                    <br>
+                    <b>overall score</b>
+                </div>
+                <div class="col">
+                    {% if result[1] != '--' and result[1] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                    {% if result[1] != '--' and result[1] < 7 and result[1] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                    {% if result[1] != '--' and result[1] < 4 %}<span style="color: #c43636;">{% endif %}
+                    <b><span style="font-size: 1.7em;">{{result[1]}}</span></b></span>
+                    <br>
+                    <b>usefulness</b>
+                </div>
+                <div class="col">
+                    {% if result[4] != '--' and result[4] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                    {% if result[4] != '--' and result[4] < 7 and result[4] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                    {% if result[4] != '--' and result[4] < 4 %}<span style="color: #c43636;">{% endif %}
+                    <b><span style="font-size: 1.7em;">{{result[4]}}</span></b></span>
+                    <br>
+                    <b>enjoyment</b>
+                </div>
+                <div class="col">
+                    {% if result[3] != '--' and result[3] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                    {% if result[3] != '--' and result[3] < 7 and result[3] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                    {% if result[3] != '--' and result[3] < 4 %}<span style="color: #c43636;">{% endif %}
+                    <b><span style="font-size: 1.7em;">{{result[3]}}</span></b></span>
+                    <br>
+                    <b>easiness</b>
+                </div>
+                <div class="col">
+                    {% if result[2] != '--' and result[2] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                    {% if result[2] != '--' and result[2] < 7 and result[2] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                    {% if result[2] != '--' and result[2] < 4 %}<span style="color: #c43636;">{% endif %}
+                    <b><span style="font-size: 1.7em;">{{result[2]}}</span></b></span>
+                    <br>
+                    <b>chillness</b>
+                </div>
+                <div class="col">
+                    {% if takeagain != '--' and takeagain >= 70 %}<span style="color: #1f9659;">{% endif %}
+                    {% if takeagain != '--' and takeagain < 70 and takeagain >= 40 %}<span style="color: #d6b048;">{% endif %}
+                    {% if takeagain != '--' and takeagain < 40 %}<span style="color: #c43636;">{% endif %}
+                    <b><span style="font-size: 1.7em;">{{takeagain}}%</span></b></span>
+                    <br>
+                    <b>would take again</b>
+                </div>
+            </div>
+
+            <br> <br>
+
+            <h3 style="font-family: 'Archivo Black', sans-serif;">{{semester}} Semester Classes</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><i>Course Number</i></th>
+                        <th><i>Professor</i></th>
+                        <th><i>CRN</i></th>
+                        <th><i>Credits</i></th>
+                        <th><i>Seats</i></th>
+                        <th><i>Meeting Time</i></th>
+                        <th><i>Location</i></th>
+                        <th><i>Add</i></th>
+                    </tr>
+                </thead>
+                {% for course in courses %}
+                    <tr>
+                        <td> {{course[0]}} </td>
+                        <td>
+                            <b><a href={{course[-1]}} style="color: #0c2340;">{{course[6]}}</a></b>
+                        </td>
+                        <td> {{course[1]}} </td>
+                        <td> {{course[2]}} </td>
+                        <td> {{course[3]}} </td>
+                        <td> <b>{{course[4]}}</b> </td>
+                        <td> {{course[5]}} </td>
+                        <td><button class="btn btn-secondary" id={{course[0]}} onclick="showmodal(this)"><img src="https://img.icons8.com/ios-glyphs/90/ffffff/plus-math.png" style="height: 15px;" /></button></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% if courses|length < 1 %}
+                <b>This course has no classes this semester.</b>
+                <br> <br> <br>
+            {% endif %}
+
+
+            <h3 style="font-family: 'Archivo Black', sans-serif;">Ratings</h3>
+            {% if individual|length < 1 %}
+                <b>There are no ratings for this course yet.</b>
+                <br> <br>
+            {% endif %}
+            {% for record in individual %}
+                <div class="card">
+                    <div class="card-body" style="background-color: #f7f7f7;">
+                        <div class="row">
+                            <div class="col">
+                                {% if record[0] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                                {% if record[0] < 7 and record[0] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                                {% if record[0] < 4 %}<span style="color: #c43636;">{% endif %}
+                                <b><span style="font-size: 1.2em;">{{record[0]}}</span></b></span>
+                                <br>
+                                overall score
+                            </div>
+                            <div class="col">
+                                {% if record[1] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                                {% if record[1] < 7 and record[1] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                                {% if record[1] < 4 %}<span style="color: #c43636;">{% endif %}
+                                <b><span style="font-size: 1.2em;">{{record[1]}}</span></b></span>
+                                <br>
+                                usefulness
+                            </div>
+                            <div class="col">
+                                {% if record[4] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                                {% if record[4] < 7 and record[4] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                                {% if record[4] < 4 %}<span style="color: #c43636;">{% endif %}
+                                <b><span style="font-size: 1.2em;">{{record[4]}}</span></b></span>
+                                <br>
+                                enjoyment
+                            </div>
+                            <div class="col">
+                                {% if record[3] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                                {% if record[3] < 7 and record[3] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                                {% if record[3] < 4 %}<span style="color: #c43636;">{% endif %}
+                                <b><span style="font-size: 1.2em;">{{record[3]}}</span></b></span>
+                                <br>
+                                easiness
+                            </div>
+                            <div class="col">
+                                {% if record[2] >= 7 %}<span style="color: #1f9659;">{% endif %}
+                                {% if record[2] < 7 and record[2] >= 4 %}<span style="color: #d6b048;">{% endif %}
+                                {% if record[2] < 4 %}<span style="color: #c43636;">{% endif %}
+                                <b><span style="font-size: 1.2em;">{{record[2]}}</span></b></span>
+                                <br>
+                                chillness
+                            </div>
+                            <div class="col">
+                                <b><span style="font-size: 1.2em;">
+                                {% if record[5] == '1' %}<span style="color: #1f9659;">YES</span>{% endif %}
+                                {% if record[5] != '1' %}<span style="color: #c43636;">NO</span>{% endif %}
+                                </span></b>
+                                <br>
+                                would take again
+                            </div>
+                            <div class="col">
+                                <b>{{record[6]}}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            {% endfor %}
+            <br>
+            <a href="/browse"><button type="submit" class="btn btn-primary">Back</button></a>
+        </div>
+    </center>
+</div>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <center>
+    <div class="formEntry">
+        <form action="/addcoursetolist" method="POST">
+            <b><span style="color: #1f9659; margin-bottom: 1.75em;"><p style="font-size: 1.2em;" id="course"></p></span></b>
+            <select name="category" id="category">
+                <option value="Definitely">Definitely Taking</option>
+                <option value="Maybe">Maybe Taking</option>
+            </select>
+            <br><br>
+            <button class="btn btn-primary" type="submit" name="submit" id="sbutton" value={{url}}@#$>Add to List</button>
+            </div>
+        </form>
+    </div>
+    </center>
+</div>
+
+<script>
+    function showmodal(elem) {
+        var btn = $(elem).attr("id");
+        document.getElementById("course").innerHTML = btn;
+        document.getElementById("sbutton").value += btn;
+
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        modal.style.display = "block";
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                    modal.style.display = "none";
+            }
+        }
+    }
+</script>
+
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container" style="padding-bottom: 0%;">
+        <center>
+            <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <a href="mailto: support@LandOne.com" ><img src="../static/email.png" style="height: 25px;"/></a>
+                    <a href="mailto: support@LandOne.com" style="color:#0c2340">support@evalurate.com</a>
+                    <br>
+                    <a href="tel: 775-536-6336"><img src="../static/phone.png" style="height: 20px;"/></a>
+                    <a href="tel: 775-536-6336" style="color:#0c2340">574-504-1916</a>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <a href="https://twitter.com/hellolandone" target="_blank"><img src="../static/twitter.png" style="height: 35px;"/></a>
+                    <a href="https://www.youtube.com/channel/UCz4xghYtr3gpKTwiiB_Ia1Q" target="_blank"><img src="../static/youtube.png" style="height: 35px;"/></a>
+                    <a href="https://www.instagram.com/hellolandone/" target="_blank"><img src="../static/instagram.png" style="height: 35px;"/></a>
+                    <a href="https://www.facebook.com/hellolandone" target="_blank"><img src="../static/facebook.png" style="height: 35px;"/></a>
+                    <a href="https://www.linkedin.com/company/landone/" target="_blank"><img src="../static/linkedin.png" style="height: 35px;"/></a>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                    <a href="#" style="color:#0c2340">Terms of Service</a>
+                    <br>
+                    <a href="#" style="color:#0c2340">Privacy Policy</a>
+                </div>
+            </div>
+            <b>Copyright © 2021 EvaluRate</b>
+        </center>
+    </div>
+</footer>
+
+
+</body>
+
+<!-- Scripts for Boostrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</body>
+
+</html>
+
